@@ -1,0 +1,27 @@
+{
+  "name": "history-tools-nodejs",
+  "version": "1.0.0",
+  "description": "history-tools-nodejs",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "debug": "nodemon app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vankiaio/vktdatav.git"
+  },
+  "keywords": [
+    "datav"
+  ],
+  "author": "tokyoliyi",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/vankiaio/vktdatav/issues"
+  },
+  "homepage": "https://github.com/vankiaio/vktdatav#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "node-fetch": "^2.6.0"
+  }
+}

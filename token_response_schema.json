@@ -1,0 +1,235 @@
+{
+    "definitions": {
+        "token_transfer_response": {
+            "type": "object",
+            "properties": {
+                "transfers": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/token_transfer"
+                    }
+                },
+                "more": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/token_transfer_key"
+                        }
+                    ]
+                }
+            }
+        },
+        "token_transfer": {
+            "type": "object",
+            "properties": {
+                "key": {
+                    "$ref": "#/definitions/token_transfer_key"
+                },
+                "from": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "to": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "quantity": {
+                    "$ref": "#/definitions/eosio::extended_asset"
+                },
+                "memo": {
+                    "type": "string"
+                }
+            }
+        },
+        "token_transfer_key": {
+            "type": "object",
+            "properties": {
+                "receiver": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "account": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "block": {
+                    "$ref": "#/definitions/eosio::block_select"
+                },
+                "transaction_id": {
+                    "$ref": "#/definitions/eosio::checksum256"
+                },
+                "action_ordinal": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                }
+            }
+        },
+        "eosio::name": {
+            "type": "string",
+            "pattern": "... todo: name pattern ..."
+        },
+        "eosio::block_select": {
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^absolute$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^head$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^irreversible$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                }
+            ]
+        },
+        "eosio::int32_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "eosio::checksum256": {
+            "type": "string",
+            "pattern": "... todo: checksum256 pattern ..."
+        },
+        "eosio::uint32_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "eosio::extended_asset": {
+            "type": "string",
+            "pattern": "... todo: extended_asset pattern ..."
+        },
+        "balances_for_multiple_accounts_response": {
+            "type": "object",
+            "properties": {
+                "balances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/token_balance"
+                    }
+                },
+                "more": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::name"
+                        }
+                    ]
+                }
+            }
+        },
+        "token_balance": {
+            "type": "object",
+            "properties": {
+                "account": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "amount": {
+                    "$ref": "#/definitions/eosio::extended_asset"
+                }
+            }
+        },
+        "balances_for_multiple_tokens_response": {
+            "type": "object",
+            "properties": {
+                "balances": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/token_balance"
+                    }
+                },
+                "more": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/bfmt_key"
+                        }
+                    ]
+                }
+            }
+        },
+        "bfmt_key": {
+            "type": "object",
+            "properties": {
+                "sym": {
+                    "$ref": "#/definitions/eosio::symbol_code"
+                },
+                "code": {
+                    "$ref": "#/definitions/eosio::name"
+                }
+            }
+        },
+        "eosio::symbol_code": {
+            "type": "string",
+            "pattern": "... todo: symbol_code pattern ..."
+        }
+    },
+    "oneOf": [
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^transfer$"
+                },
+                {
+                    "$ref": "#/definitions/token_transfer_response"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^bal\\.mult\\.acc$"
+                },
+                {
+                    "$ref": "#/definitions/balances_for_multiple_accounts_response"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^bal\\.mult\\.tok$"
+                },
+                {
+                    "$ref": "#/definitions/balances_for_multiple_tokens_response"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,347 @@
+{
+    "definitions": {
+        "block_info_response": {
+            "type": "object",
+            "properties": {
+                "blocks": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/block_info"
+                    }
+                },
+                "more": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::block_select"
+                        }
+                    ]
+                }
+            }
+        },
+        "block_info": {
+            "type": "object",
+            "properties": {
+                "block_num": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                },
+                "block_id": {
+                    "$ref": "#/definitions/eosio::checksum256"
+                },
+                "timestamp": {
+                    "$ref": "#/definitions/eosio::block_timestamp"
+                },
+                "producer": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "confirmed": {
+                    "$ref": "#/definitions/eosio::uint16_t"
+                },
+                "previous": {
+                    "$ref": "#/definitions/eosio::checksum256"
+                },
+                "transaction_mroot": {
+                    "$ref": "#/definitions/eosio::checksum256"
+                },
+                "action_mroot": {
+                    "$ref": "#/definitions/eosio::checksum256"
+                },
+                "schedule_version": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                },
+                "new_producers_version": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                }
+            }
+        },
+        "eosio::uint32_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "eosio::checksum256": {
+            "type": "string",
+            "pattern": "... todo: checksum256 pattern ..."
+        },
+        "eosio::block_timestamp": {
+            "type": "string",
+            "pattern": "... todo: block_timestamp pattern ..."
+        },
+        "eosio::name": {
+            "type": "string",
+            "pattern": "... todo: name pattern ..."
+        },
+        "eosio::uint16_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "eosio::block_select": {
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^absolute$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^head$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^irreversible$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                }
+            ]
+        },
+        "eosio::int32_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "tapos_response": {
+            "type": "object",
+            "properties": {
+                "ref_block_num": {
+                    "$ref": "#/definitions/eosio::uint16_t"
+                },
+                "ref_block_prefix": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                },
+                "expiration": {
+                    "$ref": "#/definitions/eosio::block_timestamp"
+                }
+            }
+        },
+        "account_response": {
+            "type": "object",
+            "properties": {
+                "accounts": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/eosio::account_metadata_joined"
+                    }
+                },
+                "more": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::name"
+                        }
+                    ]
+                }
+            }
+        },
+        "eosio::account_metadata_joined": {
+            "type": "object",
+            "properties": {
+                "block_num": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                },
+                "present": {
+                    "type": "boolean"
+                },
+                "name": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "privileged": {
+                    "type": "boolean"
+                },
+                "last_code_update": {
+                    "$ref": "#/definitions/eosio::time_point"
+                },
+                "code": {
+                    "oneOf": [
+                        {
+                            "type": "null"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::code_key"
+                        }
+                    ]
+                },
+                "account_block_num": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                },
+                "account_present": {
+                    "type": "boolean"
+                },
+                "account_creation_date": {
+                    "$ref": "#/definitions/eosio::block_timestamp"
+                },
+                "account_abi": {
+                    "$ref": "#/definitions/eosio::bytes"
+                }
+            }
+        },
+        "eosio::time_point": {
+            "type": "string",
+            "pattern": "... todo: time_point pattern ..."
+        },
+        "eosio::code_key": {
+            "type": "object",
+            "properties": {
+                "vm_type": {
+                    "$ref": "#/definitions/eosio::uint8_t"
+                },
+                "vm_version": {
+                    "$ref": "#/definitions/eosio::uint8_t"
+                },
+                "hash": {
+                    "$ref": "#/definitions/eosio::checksum256"
+                }
+            }
+        },
+        "eosio::uint8_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "eosio::bytes": {
+            "type": "string",
+            "pattern": "... todo: datastream pattern ..."
+        },
+        "abi_response": {
+            "type": "object",
+            "properties": {
+                "abis": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/name_abi"
+                    }
+                }
+            }
+        },
+        "name_abi": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "account_exists": {
+                    "type": "boolean"
+                },
+                "abi": {
+                    "$ref": "#/definitions/eosio::bytes"
+                }
+            }
+        },
+        "code_response": {
+            "type": "object",
+            "properties": {
+                "code": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/name_code"
+                    }
+                }
+            }
+        },
+        "name_code": {
+            "type": "object",
+            "properties": {
+                "name": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "account_exists": {
+                    "type": "boolean"
+                },
+                "code": {
+                    "$ref": "#/definitions/eosio::bytes"
+                }
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^block\\.info$"
+                },
+                {
+                    "$ref": "#/definitions/block_info_response"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^tapos$"
+                },
+                {
+                    "$ref": "#/definitions/tapos_response"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^account$"
+                },
+                {
+                    "$ref": "#/definitions/account_response"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^abi$"
+                },
+                {
+                    "$ref": "#/definitions/abi_response"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^code$"
+                },
+                {
+                    "$ref": "#/definitions/code_response"
+                }
+            ]
+        }
+    ]
+}

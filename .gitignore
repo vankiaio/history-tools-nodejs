@@ -1,0 +1,10 @@
+.vscode/
+build*/
+.DS_Store
+node_modules
+package-lock.json
+*.rocksdb
+*.wasm
+_book
+*.o
+/CMakeLists.txt.user

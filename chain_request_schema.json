@@ -1,0 +1,195 @@
+{
+    "definitions": {
+        "block_info_request": {
+            "type": "object",
+            "properties": {
+                "first": {
+                    "$ref": "#/definitions/eosio::block_select"
+                },
+                "last": {
+                    "$ref": "#/definitions/eosio::block_select"
+                },
+                "max_results": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                }
+            }
+        },
+        "eosio::block_select": {
+            "oneOf": [
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^absolute$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^head$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                },
+                {
+                    "type": "array",
+                    "items": [
+                        {
+                            "type": "string",
+                            "pattern": "^irreversible$"
+                        },
+                        {
+                            "$ref": "#/definitions/eosio::int32_t"
+                        }
+                    ]
+                }
+            ]
+        },
+        "eosio::int32_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "eosio::uint32_t": {
+            "type": [
+                "integer",
+                "string"
+            ]
+        },
+        "tapos_request": {
+            "type": "object",
+            "properties": {
+                "ref_block": {
+                    "$ref": "#/definitions/eosio::block_select"
+                },
+                "expire_seconds": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                }
+            }
+        },
+        "account_request": {
+            "type": "object",
+            "properties": {
+                "snapshot_block": {
+                    "$ref": "#/definitions/eosio::block_select"
+                },
+                "first": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "last": {
+                    "$ref": "#/definitions/eosio::name"
+                },
+                "max_results": {
+                    "$ref": "#/definitions/eosio::uint32_t"
+                },
+                "include_abi": {
+                    "type": "boolean"
+                }
+            }
+        },
+        "eosio::name": {
+            "type": "string",
+            "pattern": "... todo: name pattern ..."
+        },
+        "abi_request": {
+            "type": "object",
+            "properties": {
+                "snapshot_block": {
+                    "$ref": "#/definitions/eosio::block_select"
+                },
+                "names": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/eosio::name"
+                    }
+                }
+            }
+        },
+        "code_request": {
+            "type": "object",
+            "properties": {
+                "snapshot_block": {
+                    "$ref": "#/definitions/eosio::block_select"
+                },
+                "names": {
+                    "type": "array",
+                    "items": {
+                        "$ref": "#/definitions/eosio::name"
+                    }
+                }
+            }
+        }
+    },
+    "oneOf": [
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^block\\.info$"
+                },
+                {
+                    "$ref": "#/definitions/block_info_request"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^tapos$"
+                },
+                {
+                    "$ref": "#/definitions/tapos_request"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^account$"
+                },
+                {
+                    "$ref": "#/definitions/account_request"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^abi$"
+                },
+                {
+                    "$ref": "#/definitions/abi_request"
+                }
+            ]
+        },
+        {
+            "type": "array",
+            "items": [
+                {
+                    "type": "string",
+                    "pattern": "^code$"
+                },
+                {
+                    "$ref": "#/definitions/code_request"
+                }
+            ]
+        }
+    ]
+}
